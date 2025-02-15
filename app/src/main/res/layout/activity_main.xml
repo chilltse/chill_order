@@ -7,6 +7,7 @@
     android:background="@drawable/gradient_background"> <!-- 添加渐变背景 -->
 
     <ImageView
+        android:layout_marginTop="20dp"
         android:id="@+id/imageViewProfile"
         android:layout_width="150dp"
         android:layout_height="150dp"
@@ -44,6 +45,7 @@
             android:id="@+id/radioButtonUser"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:minHeight="48dp"
             android:layout_weight="1"
             android:checked="true"
             android:text="Login as User" />
@@ -52,6 +54,7 @@
             android:id="@+id/radioButtonAdmin"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:minHeight="48dp"
             android:layout_weight="1"
             android:text="Login as Admin" />
 

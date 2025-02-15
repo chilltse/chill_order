@@ -7,6 +7,7 @@
 
     <!-- 显示菜品的图片 -->
     <ImageView
+        android:layout_marginTop="20dp"
         android:id="@+id/imageViewDish"
         android:layout_width="80dp"
         android:layout_height="80dp"
