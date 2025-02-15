@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_background"
+    android:padding="16dp">
+
+    <!-- 菜品名称 -->
+    <EditText
+        android:id="@+id/editTextDishName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter Dish Name" />
+
+    <!-- 选择图片 -->
+    <Button
+        android:id="@+id/buttonSelectImage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Select Image"
+        android:layout_marginTop="8dp" />
+
+    <!-- 预览所选图片 -->
+    <ImageView
+        android:id="@+id/imageViewDish"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:contentDescription="TODO"
+        android:scaleType="centerCrop"
+        android:visibility="gone"
+        android:layout_marginTop="8dp" />
+
+    <!-- 添加菜品 -->
+    <Button
+        android:id="@+id/buttonAddDish"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add Dish"
+        android:layout_marginTop="8dp" />
+
+</LinearLayout>
