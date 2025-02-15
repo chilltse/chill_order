@@ -24,97 +24,150 @@ public class EmailService {
     final static String ORDER_TEMPLATE = "order_template.html";
     final static String CODE_TEMPLATE = "code_template.html";
     final static String TAG = "EmailService";
+    private static final String SMTP_HOST = "smtp.163.com";
+    private static final String SMTP_PORT = "465";
 
-//    使用多线程处理,为了防止在Android主线程上执行网络操作而引起的 android.os.NetworkOnMainThreadException
-    public static void sendOrderEmail(final Context context, final String name, final String dishName, final String remark) {
-            // 读取HTML模板
-            String content = loadEmailTemplate(context, ORDER_TEMPLATE);  // 假设模板文件名为 order_template.html
-            content = content.replace("${name}", name);
-            content = content.replace("${dishName}", dishName);
-            content = content.replace("${remark}", remark);
-
-            Properties props = new Properties();
-            props.put("mail.smtp.host", "smtp.163.com");
-            props.put("mail.smtp.port", "465");
-            props.put("mail.smtp.ssl.enable", "true");  // 163 需要 SSL
-            props.put("mail.smtp.auth", "true");
-
-
-            Session session = Session.getInstance(props,
-                    new javax.mail.Authenticator() {
-                        protected PasswordAuthentication getPasswordAuthentication() {
-                            return new PasswordAuthentication(USERNAME, PASSWORD);  // Use your real username and password here
-                        }
-                    });
-
-            try {
-                Message message = new MimeMessage(session);
-                message.setFrom(new InternetAddress(USERNAME));  // Use your real email address here
-                message.setRecipients(Message.RecipientType.TO,
-                        InternetAddress.parse(RECIPIENT_MAIL));  // Use your recipient email address here
-                message.setSubject("New Order Placed");
-                message.setContent(content, "text/html; charset=utf-8");
-
-                // 使用线程异步发送邮件
-                new Thread(new Runnable() {
-                    public void run() {
-                        try {
-                            Transport.send(message);
-                        } catch (MessagingException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }).start();
-
-            } catch (MessagingException e) {
-                e.printStackTrace();
-            }
-    }
-
-
-
-    public static void sendCodeEmail(final Context context, final String name, final String targetEmail, final String code) {
-        // 读取HTML模板
-        String content = loadEmailTemplate(context, CODE_TEMPLATE);  // 假设模板文件名为 order_template.html
-        content = content.replace("${name}", name);
-        content = content.replace("${code}", code);
-
+    private static Session createSession() {
         Properties props = new Properties();
-        props.put("mail.smtp.host", "smtp.163.com");
-        props.put("mail.smtp.port", "465");
-        props.put("mail.smtp.ssl.enable", "true");  // 163 需要 SSL
+        props.put("mail.smtp.host", SMTP_HOST);
+        props.put("mail.smtp.port", SMTP_PORT);
+        props.put("mail.smtp.ssl.enable", "true");
         props.put("mail.smtp.auth", "true");
 
+        return Session.getInstance(props, new javax.mail.Authenticator() {
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(USERNAME, PASSWORD);
+            }
+        });
+    }
 
-        Session session = Session.getInstance(props,
-                new javax.mail.Authenticator() {
-                    protected PasswordAuthentication getPasswordAuthentication() {
-                        return new PasswordAuthentication(USERNAME, PASSWORD);  // Use your real username and password here
-                    }
-                });
+    public static void sendEmail(final Context context, final String templateFileName, final String subject, final String recipient, String... replacements) {
+        // 加载HTML模板，把模板中的placeholder相对应替换
+        String content = loadEmailTemplate(context, templateFileName);
+        for (int i = 0; i < replacements.length; i += 2) {
+            content = content.replace(replacements[i], replacements[i + 1]);
+        }
 
         try {
-            Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(USERNAME));  // Use your real email address here
-            message.setRecipients(Message.RecipientType.TO,
-                    InternetAddress.parse(targetEmail));  // Use your recipient email address here
-            message.setSubject("Chill Order New Membership");
+            Message message = new MimeMessage(createSession());
+            message.setFrom(new InternetAddress(USERNAME));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipient));
+            message.setSubject(subject);
             message.setContent(content, "text/html; charset=utf-8");
 
-            // 使用线程异步发送邮件
-            new Thread(new Runnable() {
-                public void run() {
-                    try {
-                        Transport.send(message);
-                    } catch (MessagingException e) {
-                        e.printStackTrace();
-                    }
+            // 使用线程池或其他异步方式来发送邮件
+            new Thread(() -> {
+                try {
+                    Transport.send(message);
+                    Log.i(TAG, "Email sent successfully to " + recipient);
+                } catch (MessagingException e) {
+                    Log.e(TAG, "Failed to send email", e);
                 }
             }).start();
 
         } catch (MessagingException e) {
-            e.printStackTrace();
+            Log.e(TAG, "Failed to prepare email", e);
         }
+    }
+
+//    使用多线程处理,为了防止在Android主线程上执行网络操作而引起的 android.os.NetworkOnMainThreadException
+//    public static void sendOrderEmail(final Context context, final String name, final String dishName, final String remark) {
+//            // 读取HTML模板
+//            String content = loadEmailTemplate(context, ORDER_TEMPLATE);  // 假设模板文件名为 order_template.html
+//            content = content.replace("${name}", name);
+//            content = content.replace("${dishName}", dishName);
+//            content = content.replace("${remark}", remark);
+//
+//            Properties props = new Properties();
+//            props.put("mail.smtp.host", "smtp.163.com");
+//            props.put("mail.smtp.port", "465");
+//            props.put("mail.smtp.ssl.enable", "true");  // 163 需要 SSL
+//            props.put("mail.smtp.auth", "true");
+//
+//
+//            Session session = Session.getInstance(props,
+//                    new javax.mail.Authenticator() {
+//                        protected PasswordAuthentication getPasswordAuthentication() {
+//                            return new PasswordAuthentication(USERNAME, PASSWORD);  // Use your real username and password here
+//                        }
+//                    });
+//
+//            try {
+//                Message message = new MimeMessage(session);
+//                message.setFrom(new InternetAddress(USERNAME));  // Use your real email address here
+//                message.setRecipients(Message.RecipientType.TO,
+//                        InternetAddress.parse(RECIPIENT_MAIL));  // Use your recipient email address here
+//                message.setSubject("New Order Placed");
+//                message.setContent(content, "text/html; charset=utf-8");
+//
+//                // 使用线程异步发送邮件
+//                new Thread(() -> {
+//                    try {
+//                        Transport.send(message);
+//                    } catch (MessagingException e) {
+//                        Log.e(TAG, "Email sending failed", e);
+//                    }
+//                }).start();
+//
+//            } catch (MessagingException e) {
+//                Log.e(TAG, "Email sending failed", e);
+//            }
+//    }
+//
+//
+//
+//    public static void sendCodeEmail(final Context context, final String name, final String targetEmail, final String code) {
+//        // 读取HTML模板
+//        String content = loadEmailTemplate(context, CODE_TEMPLATE);  // 假设模板文件名为 order_template.html
+//        content = content.replace("${name}", name);
+//        content = content.replace("${code}", code);
+//
+//        Properties props = new Properties();
+//        props.put("mail.smtp.host", "smtp.163.com");
+//        props.put("mail.smtp.port", "465");
+//        props.put("mail.smtp.ssl.enable", "true");  // 163 需要 SSL
+//        props.put("mail.smtp.auth", "true");
+//
+//
+//        Session session = Session.getInstance(props,
+//                new javax.mail.Authenticator() {
+//                    protected PasswordAuthentication getPasswordAuthentication() {
+//                        return new PasswordAuthentication(USERNAME, PASSWORD);  // Use your real username and password here
+//                    }
+//                });
+//
+//        try {
+//            Message message = new MimeMessage(session);
+//            message.setFrom(new InternetAddress(USERNAME));  // Use your real email address here
+//            message.setRecipients(Message.RecipientType.TO,
+//                    InternetAddress.parse(targetEmail));  // Use your recipient email address here
+//            message.setSubject("Chill Order New Membership");
+//            message.setContent(content, "text/html; charset=utf-8");
+//
+//            // 使用线程异步发送邮件
+//            new Thread(new Runnable() {
+//                public void run() {
+//                    try {
+//                        Transport.send(message);
+//                    } catch (MessagingException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            }).start();
+//
+//        } catch (MessagingException e) {
+//            e.printStackTrace();
+//        }
+//    }
+
+    public static void sendOrderEmail(final Context context, final String name, final String dishName, final String remark) {
+        sendEmail(context, "order_template.html", "New Order Placed", RECIPIENT_MAIL,
+                "${name}", name, "${dishName}", dishName, "${remark}", remark);
+    }
+
+    public static void sendCodeEmail(final Context context, final String name, final String recipientEmail, final String code) {
+        sendEmail(context, "code_template.html", "Verification Code", recipientEmail,
+                "${name}", name, "${code}", code);
     }
 
 
@@ -129,7 +182,7 @@ public class EmailService {
                 content.append('\n');
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.e(TAG, "Read email template failed", e);
         }
         Log.d(TAG, content.toString());
         return content.toString();
