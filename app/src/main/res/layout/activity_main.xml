@@ -64,8 +64,8 @@
         android:id="@+id/textViewSignUp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Not a user? Sign up!"
-        android:textColor="#FF6200EE"
+        android:text="@string/not_user"
+        android:textColor="@color/purple"
         android:layout_marginTop="10dp"
         android:gravity="center"
         android:textSize="16sp" />

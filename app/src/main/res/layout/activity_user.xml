@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,7 +11,22 @@
         android:layout_marginTop="21dp"
         android:id="@+id/listViewDishes"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:divider="@android:color/darker_gray"
         android:dividerHeight="1dp" />
+
+    <FrameLayout
+        android:id="@+id/user_fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>  <!-- 使用权重来分配剩余空间 -->
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/user_nav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bottom_nav_background_color"
+        app:labelVisibilityMode="labeled"
+        app:menu="@menu/navigation" />
 </LinearLayout>
