@@ -1,7 +1,6 @@
-package com.example.menu;
+package com.example.menu.ui.login;
 
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,7 +12,10 @@ import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import org.mindrot.jbcrypt.BCrypt;
+import com.example.menu.data.database.DatabaseHelper;
+import com.example.menu.R;
+import com.example.menu.ui.admin.AdminActivity;
+import com.example.menu.ui.user.UserActivity;
 
 public class MainActivity extends AppCompatActivity {
     EditText editTextUsername, editTextPassword;

@@ -1,4 +1,4 @@
-package com.example.menu;
+package com.example.menu.service;
 
 import android.content.Context;
 

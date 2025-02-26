@@ -1,4 +1,4 @@
-package com.example.menu;
+package com.example.menu.ui.login;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -14,9 +14,10 @@ import android.os.CountDownTimer; // 导入CountDownTimer类
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+
+import com.example.menu.data.database.DatabaseHelper;
+import com.example.menu.service.EmailService;
+import com.example.menu.R;
 
 public class SignUpActivity extends AppCompatActivity {
     private Button buttonFinish;
@@ -125,17 +126,6 @@ public class SignUpActivity extends AppCompatActivity {
         return true;
     }
 
-
-//    private boolean userExists(String username, String email) {
-//        SQLiteDatabase db = dbHelper.getReadableDatabase();
-//        String[] columns = { "id" }; // 只关心是否有结果，不需要获取具体数据
-//        String selection = "username = ? OR email = ?";
-//        String[] selectionArgs = { username, email };
-//        Cursor cursor = db.query("users", columns, selection, selectionArgs, null, null, null);
-//        boolean exists = cursor.getCount() > 0;
-//        cursor.close();
-//        return exists;
-//    }
     private boolean userExists() {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         String[] columns = { "id" }; // 只关心是否有结果，不需要获取具体数据

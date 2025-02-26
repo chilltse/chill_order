@@ -1,4 +1,4 @@
-package com.example.menu;  // Adjust this package name as per your project structure
+package com.example.menu.ui.user;  // Adjust this package name as per your project structure
 
 import android.os.Bundle;
 import android.view.View;
@@ -6,19 +6,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.util.Log;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 // 邮件
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
-
-import java.util.Properties;
+import com.example.menu.service.EmailService;
+import com.example.menu.R;
 
 public class OrderDetailActivity extends AppCompatActivity {
     // Declare UI components

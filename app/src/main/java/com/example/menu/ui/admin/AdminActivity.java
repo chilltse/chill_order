@@ -1,4 +1,4 @@
-package com.example.menu;
+package com.example.menu.ui.admin;
 
 import android.os.Bundle;
 import android.view.View;
@@ -7,6 +7,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.menu.data.database.DatabaseHelper;
+import com.example.menu.R;
 
 public class AdminActivity extends AppCompatActivity {
     private EditText editTextDishName;

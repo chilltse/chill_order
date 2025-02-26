@@ -38,6 +38,9 @@ dependencies {
     implementation 'com.sun.mail:android-mail:1.6.5'
     implementation 'com.sun.mail:android-activation:1.6.5'
 
+    // recycler view
+    implementation 'androidx.recyclerview:recyclerview:1.2.1'
+
     // 密码验证相关的依赖
     implementation 'org.mindrot:jbcrypt:0.4'
 
