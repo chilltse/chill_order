@@ -1,11 +1,11 @@
 package com.example.menu.data.model;
 
-public class CartItem {
+public class DishItem {
     private String name;
     private String description;
 
     // 构造函数
-    public CartItem(String name, String description) {
+    public DishItem(String name, String description) {
         this.name = name;
         this.description = description;
     }

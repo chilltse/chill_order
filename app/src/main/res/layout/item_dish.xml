@@ -1,26 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:orientation="vertical"
     android:padding="8dp">
 
-    <!-- 显示菜品的图片 -->
-    <ImageView
-        android:layout_marginTop="20dp"
-        android:id="@+id/imageViewDish"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:scaleType="centerCrop"
-        android:src="@android:drawable/ic_menu_gallery"
-        android:layout_marginEnd="8dp" />
-
-    <!-- 显示菜品的名称 -->
     <TextView
-        android:id="@+id/textViewDishName"
-        android:layout_width="wrap_content"
+        android:id="@+id/text_view_item_name"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="18sp"
-        android:textStyle="bold"
-        android:padding="8dp" />
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/text_view_item_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"/>
 </LinearLayout>

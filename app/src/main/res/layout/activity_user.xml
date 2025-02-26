@@ -7,14 +7,14 @@
     android:background="@drawable/gradient_background"
     android:padding="16dp">
 
-    <ListView
-        android:layout_marginTop="21dp"
-        android:id="@+id/listViewDishes"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:divider="@android:color/darker_gray"
-        android:dividerHeight="1dp" />
+<!--    <ListView-->
+<!--        android:layout_marginTop="21dp"-->
+<!--        android:id="@+id/listViewDishes"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:layout_weight="1"-->
+<!--        android:divider="@android:color/darker_gray"-->
+<!--        android:dividerHeight="1dp" />-->
 
     <FrameLayout
         android:id="@+id/user_fragment_container"

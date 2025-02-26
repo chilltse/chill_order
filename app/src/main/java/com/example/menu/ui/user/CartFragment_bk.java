@@ -6,22 +6,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.menu.R;
-import com.example.menu.ui.adapter.CartAdapter;
-import com.example.menu.data.model.CartItem;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link CartFragment#newInstance} factory method to
+ * Use the {@link CartFragment_bk#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CartFragment extends Fragment {
+public class CartFragment_bk extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -32,7 +25,7 @@ public class CartFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public CartFragment() {
+    public CartFragment_bk() {
         // Required empty public constructor
     }
 
@@ -45,8 +38,8 @@ public class CartFragment extends Fragment {
      * @return A new instance of fragment HomeFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static CartFragment newInstance(String param1, String param2) {
-        CartFragment fragment = new CartFragment();
+    public static CartFragment_bk newInstance(String param1, String param2) {
+        CartFragment_bk fragment = new CartFragment_bk();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -63,26 +56,11 @@ public class CartFragment extends Fragment {
         }
     }
 
-//    @Override
-//    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-//                             Bundle savedInstanceState) {
-//        // Inflate the layout for this fragment
-//        return inflater.inflate(R.layout.fragment_home, container, false);
-//    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_cart, container, false);
-        RecyclerView recyclerView = view.findViewById(R.id.recyclerViewCart);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        // 创建一些示例数据
-        List<CartItem> cartItems = new ArrayList<>();
-        cartItems.add(new CartItem("Apple", "Fresh apples"));
-        cartItems.add(new CartItem("Banana", "Chiquita bananas"));
-
-        CartAdapter adapter = new CartAdapter(cartItems);
-        recyclerView.setAdapter(adapter);
-        return view;
+        // Inflate the layout for this fragment
+        //TODO 之后创建对应的xml
+        return inflater.inflate(R.layout.fragment_cart, container, false);
     }
 }

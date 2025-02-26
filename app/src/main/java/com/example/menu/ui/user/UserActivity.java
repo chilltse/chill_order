@@ -25,7 +25,7 @@ public class UserActivity extends AppCompatActivity {
     private BottomNavigationView navView;
 
     private HomeFragment homeFragment;
-    private CartFragment cartFragment;
+    private CartFragment_bk cartFragment;
     private OrderFragment orderFragment;
     private MineFragment mineFragment;
     ////
@@ -40,24 +40,24 @@ public class UserActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
 
-        listViewDishes = findViewById(R.id.listViewDishes);
+//        listViewDishes = findViewById(R.id.listViewDishes);
         dbHelper = new DatabaseHelper(this);
 
-        loadDishes();
+//        loadDishes();
 
-        listViewDishes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // 获取菜品名称
-                String dishName = dishes.get(position);
-
-                // 传递菜品名称到 OrderDetailActivity
-                Intent intent = new Intent(getApplicationContext(), OrderDetailActivity.class);
-                intent.putExtra("DishName", dishName);
-                intent.putExtra("UserName", getIntent().getStringExtra("UserName"));
-                startActivity(intent);
-            }
-        });
+//        listViewDishes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                // 获取菜品名称
+//                String dishName = dishes.get(position);
+//
+//                // 传递菜品名称到 OrderDetailActivity
+//                Intent intent = new Intent(getApplicationContext(), OrderDetailActivity.class);
+//                intent.putExtra("DishName", dishName);
+//                intent.putExtra("UserName", getIntent().getStringExtra("UserName"));
+//                startActivity(intent);
+//            }
+//        });
 
 
         // navbar
@@ -70,7 +70,7 @@ public class UserActivity extends AppCompatActivity {
             } else if (itemId == R.id.nav_mine) {
                 selectedFragment = new MineFragment();
             } else if (itemId == R.id.nav_cart) {
-                selectedFragment = new CartFragment();
+                selectedFragment = new CartFragment_bk();
             } else if (itemId == R.id.nav_order) {
                 selectedFragment = new OrderFragment();
             }
